@@ -1,0 +1,1 @@
+1..10 | ForEach-Object { curl.exe -s -H "Connection: close" http://<LB_IP> }
