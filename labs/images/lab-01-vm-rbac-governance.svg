@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="820" viewBox="0 0 1200 820" role="img" aria-labelledby="title description">
+  <title id="title">Lab 01 - Northstar Books VM operator architecture</title>
+  <desc id="description">Alex administers an isolated lab resource group. Sam has Reader at resource-group scope and a custom restart-only role on one VM. The VM has a private NIC, OS disk, and no public IP. A CostCenter tag policy and budget apply to the resource group. A Delete lock protects only an empty test VNet.</desc>
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#047857"/>
+    </marker>
+    <style>
+      text { font-family: "Segoe UI", Arial, sans-serif; fill: #172033; }
+      .heading { font-size: 27px; font-weight: 700; }
+      .subheading { font-size: 18px; font-weight: 600; }
+      .body { font-size: 16px; }
+      .small { font-size: 14px; }
+      .muted { fill: #475569; }
+      .blue { fill: #1d4ed8; }
+      .green { fill: #047857; }
+      .card { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; }
+    </style>
+  </defs>
+  <rect width="1200" height="820" fill="#f8fafc"/>
+  <text x="40" y="47" class="heading">Lab 01 | Northstar Books</text>
+  <text x="40" y="77" class="body muted">Final state: inspect the environment, restart one VM, and prove the governance boundaries.</text>
+
+  <rect x="35" y="110" width="275" height="170" rx="14" class="card"/>
+  <circle cx="72" cy="146" r="17" fill="#dbeafe"/>
+  <text x="104" y="151" class="subheading">Alex | Administrator</text>
+  <text x="55" y="188" class="body">Creates and cleans up resources</text>
+  <text x="55" y="215" class="body">Manages lab RBAC and Policy</text>
+  <text x="55" y="249" class="small muted">Entra user-management access is</text>
+  <text x="55" y="268" class="small muted">separate from Azure ownership.</text>
+
+  <rect x="35" y="360" width="275" height="220" rx="14" class="card"/>
+  <circle cx="72" cy="397" r="17" fill="#d1fae5"/>
+  <text x="104" y="403" class="subheading">Sam | Operator</text>
+  <text x="55" y="443" class="body">Reader: lab resource group</text>
+  <text x="55" y="473" class="body">Restart-only role: one VM</text>
+  <text x="55" y="512" class="small muted">No resize, delete, run command,</text>
+  <text x="55" y="534" class="small muted">resource creation, or role assignment.</text>
+  <text x="55" y="562" class="small green">Use a separate sign-in session.</text>
+
+  <rect x="400" y="110" width="760" height="605" rx="18" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="425" y="147" class="subheading blue">Azure subscription | isolated learning resource group</text>
+  <text x="425" y="177" class="body">rg-az104-lab01-northstar</text>
+  <path d="M310 180 H392" fill="none" stroke="#2563eb" stroke-width="3" marker-end="url(#arrow-blue)"/>
+  <text x="321" y="164" class="small blue">Manage</text>
+  <path d="M310 425 H392" fill="none" stroke="#047857" stroke-width="3" marker-end="url(#arrow-green)"/>
+  <text x="325" y="410" class="small green">Read</text>
+
+  <rect x="425" y="204" width="710" height="89" rx="10" fill="#ffffff" stroke="#93c5fd"/>
+  <text x="443" y="232" class="subheading">Resource-group controls</text>
+  <text x="443" y="258" class="body">Policy: require CostCenter on taggable resources</text>
+  <text x="443" y="282" class="small muted">Budget: notify at thresholds; not a spending cap or an automatic shutdown.</text>
+
+  <rect x="425" y="316" width="710" height="230" rx="12" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+  <text x="444" y="345" class="subheading">vnet-northstar-01 | 10.41.0.0/16</text>
+  <rect x="444" y="363" width="672" height="163" rx="9" fill="#f0fdf4" stroke="#86efac"/>
+  <text x="460" y="390" class="body">snet-workload | 10.41.1.0/24</text>
+  <rect x="615" y="409" width="240" height="96" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="635" y="438" class="subheading">vm-northstar-01</text>
+  <text x="635" y="464" class="body">Small Ubuntu Linux VM</text>
+  <text x="635" y="487" class="small blue">Private NIC | no public IP</text>
+  <rect x="906" y="419" width="187" height="76" rx="9" class="card"/>
+  <text x="924" y="447" class="body">OS disk</text>
+  <text x="924" y="474" class="small muted">Standard SSD LRS</text>
+  <path d="M855 456 H906" stroke="#64748b" stroke-width="2" fill="none"/>
+  <path d="M310 475 H374 V457 H607" fill="none" stroke="#047857" stroke-width="3" marker-end="url(#arrow-green)"/>
+  <text x="469" y="438" class="small green">Restart only</text>
+
+  <rect x="425" y="568" width="345" height="120" rx="10" class="card"/>
+  <text x="443" y="598" class="subheading">Policy-test VNet</text>
+  <text x="443" y="625" class="body">Missing tag: deployment denied</text>
+  <text x="443" y="650" class="body">Tag added: deployment allowed</text>
+  <text x="443" y="676" class="small muted">Empty network; no paid add-ons</text>
+  <rect x="790" y="568" width="345" height="120" rx="10" class="card"/>
+  <text x="808" y="598" class="subheading">Lock-test VNet</text>
+  <text x="808" y="625" class="body">Delete lock: deletion blocked</text>
+  <text x="808" y="650" class="body">Tag update: still allowed</text>
+  <text x="808" y="676" class="small muted">Remove the lab lock before cleanup</text>
+
+  <rect x="35" y="738" width="1125" height="58" rx="10" fill="#172033"/>
+  <text x="55" y="763" class="body" style="fill:#ffffff">Arrows show management-plane permissions, not SSH or application traffic.</text>
+  <text x="55" y="785" class="small" style="fill:#cbd5e1">Cleanup includes resources, temporary assignments, custom role, policy, budget, and the lab-created test user.</text>
+</svg>
