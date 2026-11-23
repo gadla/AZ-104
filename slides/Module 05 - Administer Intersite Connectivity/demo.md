@@ -1,10 +1,10 @@
-<div dir="rtl" align="right">
+<div dir="ltr" align="left">
 
 # <span dir="ltr">Demo: VNet peering, NVA, and UDRs</span>
 
 <span dir="ltr">Peering is **not transitive**. This demo first shows isolated spokes, then connects them through a hub Linux NVA using UDRs.</span>
 
-<div dir="ltr" align="right">
+<div dir="ltr" align="left">
 
 ```text
 VM1 (10.1.0.4) -- peering -- NVA (10.0.0.4) -- peering -- VM2 (10.2.0.4)
@@ -20,7 +20,7 @@ VM1 (10.1.0.4) -- peering -- NVA (10.0.0.4) -- peering -- VM2 (10.2.0.4)
 1. <span dir="ltr">Copy [main.bicep](./main.bicep) and [deploy.ps1](./deploy.ps1) into one folder. Open local PowerShell there.</span>
 2. <span dir="ltr">Select your subscription and deploy:</span>
 
-   <div dir="ltr" align="right">
+   <div dir="ltr" align="left">
 
    ```powershell
    Connect-AzAccount
@@ -41,7 +41,7 @@ VM1 (10.1.0.4) -- peering -- NVA (10.0.0.4) -- peering -- VM2 (10.2.0.4)
 
 1. <span dir="ltr">Inside **the NVA**, run:</span>
 
-   <div dir="ltr" align="right">
+   <div dir="ltr" align="left">
 
    ```bash
    sudo cloud-init status --wait
@@ -56,7 +56,7 @@ VM1 (10.1.0.4) -- peering -- NVA (10.0.0.4) -- peering -- VM2 (10.2.0.4)
 2. <span dir="ltr">In each VNet's portal **Peerings** page, confirm all four directional hub/spoke peerings are **Connected**, with forwarded traffic allowed. There is no direct spoke peering.</span>
 3. <span dir="ltr">Inside **VM1**, run:</span>
 
-   <div dir="ltr" align="right">
+   <div dir="ltr" align="left">
 
    ```bash
    ping -c 4 -W 2 10.0.0.4
@@ -73,7 +73,7 @@ VM1 (10.1.0.4) -- peering -- NVA (10.0.0.4) -- peering -- VM2 (10.2.0.4)
 1. <span dir="ltr">In portal **Route tables**, inspect each table's **Routes**, then use **Subnets > Associate**:</span>
 
    | <span dir="ltr">Route table</span> | <span dir="ltr">Destination</span> | <span dir="ltr">VNet / subnet to associate</span> |
-   |---:|---:|---:|
+   |:---|:---|:---|
    | <span dir="ltr">`rt-vnet1-to-vnet2`</span> | <span dir="ltr">`10.2.0.0/16`</span> | <span dir="ltr">`vnet-1` / `subnet-1`</span> |
    | <span dir="ltr">`rt-vnet2-to-vnet1`</span> | <span dir="ltr">`10.1.0.0/16`</span> | <span dir="ltr">`vnet-2` / `subnet-2`</span> |
 
@@ -82,7 +82,7 @@ VM1 (10.1.0.4) -- peering -- NVA (10.0.0.4) -- peering -- VM2 (10.2.0.4)
 2. <span dir="ltr">Allow changes to propagate. On **VM1**, repeat `ping -c 4 -W 2 10.2.0.4`. On **VM2**, run `ping -c 4 -W 2 10.1.0.4`. **Both should receive replies.**</span>
 3. <span dir="ltr">To verify the path, run on **the NVA**, then repeat a spoke ping:</span>
 
-   <div dir="ltr" align="right">
+   <div dir="ltr" align="left">
 
    ```bash
    sudo tcpdump -ni any 'icmp and host 10.1.0.4 and host 10.2.0.4'
@@ -100,7 +100,7 @@ VM1 (10.1.0.4) -- peering -- NVA (10.0.0.4) -- peering -- VM2 (10.2.0.4)
 - <span dir="ltr">**Redeployment warning:** it can remove manual route associations and restores unrestricted SSH.</span>
 - <span dir="ltr">**Cleanup:** in local PowerShell, confirm the subscription and delete **only your dedicated lab resource group**, accepting the confirmation:</span>
 
-  <div dir="ltr" align="right">
+  <div dir="ltr" align="left">
 
   ```powershell
   Get-AzContext
