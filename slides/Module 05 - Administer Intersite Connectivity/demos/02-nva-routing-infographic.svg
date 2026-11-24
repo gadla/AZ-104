@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1120" viewBox="0 0 1400 1120" role="img" aria-labelledby="title description">
+  <title id="title">Demo 2: Connecting Azure spokes through a hub NVA</title>
+  <desc id="description">Two spoke networks are peered to a hub, but peering alone does not connect the spokes. Enable forwarding on the hub NVA, then associate a user-defined route with each spoke subnet. Requests travel from vm-a through vm-nva to vm-b, and replies return through the same NVA.</desc>
+  <defs>
+    <linearGradient id="header" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#102a43"/>
+      <stop offset="1" stop-color="#155e75"/>
+    </linearGradient>
+    <marker id="blue-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="green-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 Z" fill="#15803d"/>
+    </marker>
+    <marker id="teal-arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 Z" fill="#0e7490"/>
+    </marker>
+    <style>
+      text { font-family: "Segoe UI", Arial, sans-serif; fill: #172b4d; }
+      .white { fill: #ffffff; }
+      .muted { fill: #52657a; }
+      .label { font-size: 15px; font-weight: 700; letter-spacing: 1.4px; }
+      .heading { font-size: 24px; font-weight: 700; }
+      .body { font-size: 19px; }
+      .small { font-size: 16px; }
+      .mono { font-family: Consolas, "Courier New", monospace; font-size: 20px; }
+      .green { fill: #166534; }
+      .red { fill: #b91c1c; }
+    </style>
+  </defs>
+
+  <rect width="1400" height="1120" fill="#f1f5f9"/>
+  <rect width="1400" height="150" fill="url(#header)"/>
+  <text x="60" y="43" class="white label">AZ-104 / MODULE 05 / DEMO 2</text>
+  <text x="60" y="92" class="white" font-size="40" font-weight="700">Connect two spokes through a hub NVA</text>
+  <text x="60" y="127" class="white body">Peering provides the links. UDRs choose the path. The NVA forwards the packets.</text>
+
+  <text x="60" y="192" class="label muted">THE TOPOLOGY</text>
+
+  <rect x="60" y="215" width="340" height="220" rx="18" fill="#ffffff" stroke="#93c5fd" stroke-width="2"/>
+  <rect x="60" y="215" width="340" height="48" rx="18" fill="#dbeafe"/>
+  <rect x="60" y="244" width="340" height="19" fill="#dbeafe"/>
+  <text x="84" y="247" class="label" fill="#1d4ed8">SPOKE A / vnet-a</text>
+  <text x="84" y="301" class="mono">10.1.0.0/16</text>
+  <text x="84" y="333" class="small muted">snet-demo: 10.1.0.0/24</text>
+  <rect x="84" y="352" width="292" height="60" rx="10" fill="#eff6ff"/>
+  <text x="103" y="389" class="body" font-weight="700">vm-a</text>
+  <text x="354" y="389" class="mono" text-anchor="end">10.1.0.4</text>
+
+  <rect x="530" y="215" width="340" height="220" rx="18" fill="#ffffff" stroke="#67e8f9" stroke-width="2"/>
+  <rect x="530" y="215" width="340" height="48" rx="18" fill="#cffafe"/>
+  <rect x="530" y="244" width="340" height="19" fill="#cffafe"/>
+  <text x="554" y="247" class="label" fill="#0e7490">HUB / vnet-hub</text>
+  <text x="554" y="301" class="mono">10.0.0.0/16</text>
+  <text x="554" y="333" class="small muted">snet-demo: 10.0.0.0/24</text>
+  <rect x="554" y="352" width="292" height="60" rx="10" fill="#ecfeff"/>
+  <text x="573" y="389" class="body" font-weight="700">vm-nva</text>
+  <text x="824" y="389" class="mono" text-anchor="end">10.0.0.4</text>
+
+  <rect x="1000" y="215" width="340" height="220" rx="18" fill="#ffffff" stroke="#93c5fd" stroke-width="2"/>
+  <rect x="1000" y="215" width="340" height="48" rx="18" fill="#dbeafe"/>
+  <rect x="1000" y="244" width="340" height="19" fill="#dbeafe"/>
+  <text x="1024" y="247" class="label" fill="#1d4ed8">SPOKE B / vnet-b</text>
+  <text x="1024" y="301" class="mono">10.2.0.0/16</text>
+  <text x="1024" y="333" class="small muted">snet-demo: 10.2.0.0/24</text>
+  <rect x="1024" y="352" width="292" height="60" rx="10" fill="#eff6ff"/>
+  <text x="1043" y="389" class="body" font-weight="700">vm-b</text>
+  <text x="1294" y="389" class="mono" text-anchor="end">10.2.0.4</text>
+
+  <path d="M 412 325 H 518" fill="none" stroke="#2563eb" stroke-width="3" marker-start="url(#blue-arrow)" marker-end="url(#blue-arrow)"/>
+  <text x="465" y="302" class="small" text-anchor="middle">Peering</text>
+  <path d="M 882 325 H 988" fill="none" stroke="#2563eb" stroke-width="3" marker-start="url(#blue-arrow)" marker-end="url(#blue-arrow)"/>
+  <text x="935" y="302" class="small" text-anchor="middle">Peering</text>
+  <text x="700" y="468" class="body muted" text-anchor="middle">No direct spoke-to-spoke peering. All tests use private IP addresses.</text>
+
+  <rect x="60" y="495" width="620" height="171" rx="16" fill="#fff1f2" stroke="#fecdd3"/>
+  <text x="84" y="532" class="heading red">BEFORE: peering only</text>
+  <text x="84" y="569" class="body">vm-a can reach the hub NVA.</text>
+  <text x="84" y="602" class="body">vm-a cannot reach vm-b through the hub.</text>
+  <text x="84" y="642" class="small red" font-weight="700">Peering is NOT transitive.</text>
+
+  <rect x="720" y="495" width="620" height="171" rx="16" fill="#f0fdf4" stroke="#bbf7d0"/>
+  <text x="744" y="532" class="heading green">AFTER: forwarding + two UDRs</text>
+  <text x="770" y="579" class="body" font-weight="700">vm-a</text>
+  <text x="976" y="579" class="body" font-weight="700">vm-nva</text>
+  <text x="1214" y="579" class="body" font-weight="700">vm-b</text>
+  <path d="M 836 574 H 958 M 1058 574 H 1196" fill="none" stroke="#15803d" stroke-width="3" marker-end="url(#green-arrow)"/>
+  <path d="M 1220 607 H 800" fill="none" stroke="#0e7490" stroke-width="3" marker-end="url(#teal-arrow)"/>
+  <text x="1030" y="644" class="small green" text-anchor="middle" font-weight="700">Request goes through the NVA. Reply comes back through it.</text>
+
+  <text x="60" y="710" class="label muted">THREE REQUIRED CHANGES</text>
+
+  <rect x="60" y="732" width="400" height="230" rx="16" fill="#ffffff" stroke="#cbd5e1"/>
+  <circle cx="92" cy="764" r="18" fill="#0e7490"/>
+  <text x="92" y="771" class="white body" text-anchor="middle" font-weight="700">1</text>
+  <text x="122" y="771" class="heading">Enable forwarding</text>
+  <text x="84" y="813" class="body">Azure NIC: IP forwarding enabled</text>
+  <text x="84" y="848" class="body">Linux NVA: run via Run Command</text>
+  <rect x="84" y="869" width="352" height="44" rx="8" fill="#e2e8f0"/>
+  <text x="99" y="896" font-family="Consolas, monospace" font-size="15">sysctl -w net.ipv4.ip_forward=1</text>
+  <text x="84" y="942" class="small muted">Hub/spoke peerings allow forwarded traffic.</text>
+
+  <rect x="500" y="732" width="400" height="230" rx="16" fill="#ffffff" stroke="#cbd5e1"/>
+  <circle cx="532" cy="764" r="18" fill="#2563eb"/>
+  <text x="532" y="771" class="white body" text-anchor="middle" font-weight="700">2</text>
+  <text x="562" y="771" class="heading">Route from A to B</text>
+  <text x="524" y="813" class="body" font-weight="700">rt-a / route: to-b</text>
+  <text x="524" y="848" class="mono">Destination: 10.2.0.0/16</text>
+  <text x="524" y="880" class="small">Next hop: Virtual appliance / 10.0.0.4</text>
+  <text x="524" y="915" class="small" font-weight="700">Associate with vnet-a / snet-demo</text>
+  <text x="524" y="942" class="small muted">This is the request path.</text>
+
+  <rect x="940" y="732" width="400" height="230" rx="16" fill="#ffffff" stroke="#cbd5e1"/>
+  <circle cx="972" cy="764" r="18" fill="#2563eb"/>
+  <text x="972" y="771" class="white body" text-anchor="middle" font-weight="700">3</text>
+  <text x="1002" y="771" class="heading">Route from B to A</text>
+  <text x="964" y="813" class="body" font-weight="700">rt-b / route: to-a</text>
+  <text x="964" y="848" class="mono">Destination: 10.1.0.0/16</text>
+  <text x="964" y="880" class="small">Next hop: Virtual appliance / 10.0.0.4</text>
+  <text x="964" y="915" class="small" font-weight="700">Associate with vnet-b / snet-demo</text>
+  <text x="964" y="942" class="small muted">This is the return path.</text>
+
+  <rect x="60" y="989" width="1280" height="88" rx="14" fill="#102a43"/>
+  <text x="84" y="1024" class="white body" font-weight="700">VERIFY: ping 10.2.0.4 from vm-a, then ping 10.1.0.4 from vm-b. Both should reply.</text>
+  <text x="84" y="1056" class="white small">Check Effective routes on both spoke NICs. Do not associate a route table with the hub subnet.</text>
+  <text x="1340" y="1104" class="small muted" text-anchor="end">UDR = User-Defined Route | NVA = Network Virtual Appliance</text>
+</svg>
